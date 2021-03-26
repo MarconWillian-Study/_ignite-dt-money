@@ -31,27 +31,17 @@ export function TransactionsProvider({children}: TransactionProviderProps){
 
 
   useEffect(() => {
-    const transactions = JSON.parse(localStorage.getItem("@ignite/dt-money") || "[]")
-
-    setTransactions(transactions)
-    // api.get('transactions')
-    //   .then(response => setTransactions(response.data.transactions))
+    api.get('transactions')
+      .then(response => setTransactions(response.data.transactions))
   }, []);
 
   async function createTransaction(transactionInput: TransactionInput){
-    // const response = await api.post('/transactions', {
-    //   ...transactionInput,
-    //   createAt: new Date()
-    // });
-    // const { transaction } = response.data;
-
-    const transaction = {
-      id: v4(),
+    const response = await api.post('/transactions', {
       ...transactionInput,
       createAt: new Date()
-    }
+    });
+    const { transaction } = response.data;
 
-    localStorage.setItem('@ignite/dt-money', JSON.stringify([...transactions, transaction]))
     setTransactions([...transactions, transaction]);
   }
 
