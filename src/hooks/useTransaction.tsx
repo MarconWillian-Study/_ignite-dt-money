@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useEffect, useState }  from 'react'
-import { v4 } from 'uuid';
 
 import api from '../services/api';
 
